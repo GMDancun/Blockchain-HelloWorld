@@ -1,4 +1,3 @@
 service: () -> {
-    getMessage: () -> (text) query;
-    setMessage: (text) -> ();
+    addMessage: (record {title:text; body:text; attchmentUrl:text}) -> (variant {Ok:record {id:text; title:text; body:text; createdAt:nat64; updatedAt:opt nat64; attchmentUrl:text}; Err:variant {InvalidPayload:text; NotFound:text}});
 }
