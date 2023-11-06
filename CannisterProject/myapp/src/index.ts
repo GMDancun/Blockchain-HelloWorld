@@ -45,6 +45,8 @@ export default Canister({
     // create CRUD Application
     //C -> one is able to create a resource to the cannister(update), e.g Employees app
 
+
+
     //addMessage: update
     // function: type([datatypes for the parameters], Return Type, (parameters)){}
     addMessage:update([MessagePayload], Result(Message, Error), (payload) => {
@@ -58,22 +60,41 @@ export default Canister({
 
     // R -> Read resources excisting on the canister(query)
     // Read All Messages
-    // Read a specific Message(id)
 
+    getMessages: query([], Result(Vec(Message), Error), () => {
+        return Ok(MessageStorage.values());
+    }),
+
+    // Read a specific Message(id)
+    getMessage: query([text], Result(Message, Error), (id) => {
+        const specificMessage = MessageStorage.get(id)
+
+        if ("None" in specificMessage){
+            return Err({NotFound: `The message of id ${id} Not Found`})
+        }
+        
+        return Ok(specificMessage.Some)
+    }),
 
 
 
     // U -> Update the existing resources(id)
+    updatedMessage: update([text, MessagePayload], Result(Message, Error), (id, payload) => {
+        const updatedMessage = MessageStorage.get(id)
+        if("None" in updatedMessage){
+            return Err({NotFound: `The message of id {id} Not Found`});
+        }
 
+        const message = updatedMessage.Some;
+        const modifiedMessage = {...message, ...payload, updatedAt: None};
+
+        MessageStorage.insert(message.id, modifiedMessage)
+        return Ok(modifiedMessage)
+    }),
 
 
     //D -> Delete a resource/ 
 
-
-
-
-
- 
 
 
 });

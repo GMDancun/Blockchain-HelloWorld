@@ -1,0 +1,13 @@
+service: () -> {
+    cancelTractorHiring: (text) -> (variant {Ok:bool; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    deleteTractor: (text) -> (variant {Ok:bool; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    lendTractor: (text, text) -> (variant {Ok:text; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    listTractorHireHistory: (text) -> (vec record {id:text; startTime:nat64; canceled:bool; farmerId:text; endTime:opt nat64; tractorId:text}) query;
+    queryFarmer: (text) -> (variant {Ok:record {id:text; name:text; address:text; contactNumber:text}; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}}) query;
+    queryTractor: (text) -> (variant {Ok:record {id:text; available:bool; brand:text}; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}}) query;
+    registerFarmer: (text, text, text) -> (variant {Ok:text; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    registerTractor: (text) -> (variant {Ok:text; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    returnTractor: (text) -> (variant {Ok:bool; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    updateFarmer: (text, text, text, text) -> (variant {Ok:bool; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+    updateTractor: (text, text) -> (variant {Ok:bool; Err:variant {TractorHireNotFound:text; InvalidPayload:text; NotFound:text; TractorNotAvailable:text; TractorAlreadyBorrowed:text}});
+}

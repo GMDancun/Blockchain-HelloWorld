@@ -1,0 +1,13 @@
+{
+    "canisters": {
+        "tractorapp": {
+            "type": "custom",
+            "main": "src/index.ts",
+            "candid": "src/index.did",
+            "build": "npx azle tractorapp",
+            "wasm": ".azle/tractorapp/tractorapp.wasm",
+            "gzip": true
+        }
+    }
+}
+
